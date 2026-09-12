@@ -9,9 +9,8 @@ class Program
     
     static void Main(string[] args)
     {
-        Program program = new Program();
-        Savejournal savejournal = new Savejournal();
-        Loadjournal loadjournal = new Loadjournal();
+        Prompt prompt = new Prompt();
+        Journal journal = new Journal();
         
         int option;
         Console.WriteLine("Hello World! This is the Journal Project.");
@@ -23,16 +22,17 @@ class Program
             switch (option)
             {
                 case 1:
-                    program.new_entry();
+                    prompt.prompt_list();
+                    journal.storeEntry(prompt.prompt_list());
                     break;
                 case 2:
-                    program.displayJournal();
+                    prompt.display();
                     break;
                 case 3:
-                    loadjournal.Ready_journal();
+                    //loadjournal.Ready_journal();
                     break;
                 case 4:
-                    savejournal.saving_journal();
+                    journal.saveFile();
                     break;
                 case 5:
                     open = false;
@@ -40,32 +40,6 @@ class Program
             }
         }while (open == true);
 
-
-    }
-
-    public List<string> _journal = new List<string>();
-
-    public string Date = DateTime.Now.ToString("d");
-    public void new_entry()
-    {   
-        Prompt prompt = new Prompt();
-        prompt.prompt_list();
-        string Answer = Console.ReadLine();
-        string listoutput = prompt.PromptResult;
-        _journal.Add(listoutput);
-        _journal.Add(Answer);
-        
-    }
-
-    public void displayJournal()
-    {
-        //Display
-        foreach (string prompt in _journal)
-        {
-            Console.WriteLine(prompt);
-        }
-        
-        
 
     }
 }
