@@ -26,10 +26,17 @@ class Program
                     journal.storeEntry(prompt.prompt_list());
                     break;
                 case 2:
-                    prompt.display();
+                    if (journal._filename == "")
+                    {
+                        prompt.display();
+                    }
+                    else
+                    {
+                    journal.displayAll();
+                    }
                     break;
                 case 3:
-                    //loadjournal.Ready_journal();
+                    journal.loadFile();
                     break;
                 case 4:
                     journal.saveFile();
