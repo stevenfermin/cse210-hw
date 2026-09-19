@@ -32,7 +32,7 @@ class Program
         word._Text = verse;
 
         Reference reference = new Reference(book, int.Parse(chapter), int.Parse(startverse), int.Parse(endVerse));
-        Console.WriteLine(reference.Display());
+        Console.Write(reference.Display());
 
         Scripture scripture1 = new Scripture();
         scripture1._Words.Add(word);

@@ -1,3 +1,5 @@
+using System.Collections.Concurrent;
+
 public class Word
 {
     private string _text;
@@ -16,12 +18,14 @@ public class Word
 
     public void hide()
     {
-        Scripture scripture1 = new Scripture();
+        Reference reference = new Reference();
+        
         List<int> hiddenwords = new List<int>();
         Random rand = new Random();
 
             string[] words = _Text.Split(" ");
             Console.Clear();
+            
             while (hiddenwords.Count < words.Length)
             {
                 
@@ -29,7 +33,6 @@ public class Word
                 {
                     
                     Console.Clear();
-                    Console.WriteLine(scripture1.GetReference());
                     for (int i = 0; i < words.Length; i++)
                     {
                         if (hiddenwords.Contains(i))

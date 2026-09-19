@@ -15,10 +15,10 @@ public class Scripture
         }
     }
 
-    public string GetReference()
+    public void GetReference()
     {
         string word = _Reference;
-        return word;
+        Console.Write(word);
     }
     private List<Word> _words = new List<Word>();
 

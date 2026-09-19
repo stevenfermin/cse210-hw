@@ -53,6 +53,7 @@ public class Reference
 
     public Reference()
     {
+    
     }
     public Reference(string book, int chapter, int verse)
     {
