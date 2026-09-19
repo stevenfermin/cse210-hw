@@ -7,69 +7,43 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Hello World! This is the ScriptureMemorizer Project.");
+        List<string> scripture = new List<string>();
+        string _filename = "scripturecite.txt";
+
+        string[] lines = System.IO.File.ReadAllLines(_filename);
 
         string book = "";
         string chapter = "";
-        string verse = "";
+        string startverse = "";
         string endVerse = "";
-        string scripture = "";
-
-        string _filename ="scripturecite.txt";
-        Console.WriteLine();
-        List<string> cite = new List<string>();
-        string[] lines = System.IO.File.ReadAllLines(_filename);
+        string verse = "";
 
         foreach (string line in lines)
         {
-            cite.Add(line);
-        }
-
-        foreach (string word in cite)
-        {
-            string[] part = word.Split(",");
+            string[] part = line.Split(",");
             book = part[0];
             chapter = part[1];
-            verse = part[2];
+            startverse = part[2];
             endVerse = part[3];
-            scripture = part[4];
+            verse = part[4];
         }
-        string[] words = scripture.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-        foreach (string word in words)
-        {
-            Console.Write($"{word} ");
-        }
+        Console.Clear();
+        Word word = new Word();
+        word._Text = verse;
 
-        Random rand = new Random();
-        int numwords = words.Count();
-        int nword = rand.Next(numwords);
-        List<int> whided = new List<int>();
-        int count = 0;
-        bool active = true;
-        Console.Write("Please enter something: ");
+        Reference reference = new Reference(book, int.Parse(chapter), int.Parse(startverse), int.Parse(endVerse));
+        Console.WriteLine(reference.Display());
+
+        Scripture scripture1 = new Scripture();
+        scripture1._Words.Add(word);
+        scripture1.Display();
+
+        Console.WriteLine("To hide some words, please press Enter. Type 'quit' to close the program:");
         string input = Console.ReadLine();
-        while (active == true){
-            do
-            {
-                foreach (string word in words)
-                {
-                    if (whided.Contains(nword))
-                {
-                    count += 0;
-                    cite.Add("_");
-                }
-                else
-                {
-                    count +=1;
-                    cite.Add(word);
-                }
-                }
-                
-
-            } while (count != 3);
-            if (input != "quit")
-            {
-                active = true;
-            }
+        if (input != "quit")
+        {
+            word.hide();
         }
+ 
     }
 }
