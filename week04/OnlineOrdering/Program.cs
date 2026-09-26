@@ -1,16 +1,19 @@
 using System;
 using System.Collections.Concurrent;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 
 class Program
 {
     static void Main(string[] args)
     {
+        Console.Clear();
         Console.WriteLine("Hello World! This is the OnlineOrdering Project.");
         
         Product product = new Product();
-        product.setProduct(1, "Laptop", 999.99, 10);
-        product.setProduct(2, "Smartphone", 499.99, 20);
-        product.getProduct();
+        product.setProduct(1, "Laptop", 850.99, 10);
+        product.setProduct(2, "Smartphone", 400.99, 20);
+
 
         Customer customer = new Customer();
         customer.setCustomer("John Doe");
@@ -26,29 +29,75 @@ class Program
         {
             foreach (var kvp in address.getAddress())
             {
+                int shipCost = 0;
                 if (kvp.Key == name)
                 {
-                    Console.WriteLine($"Customer: {name}, Address: {string.Join(", ", kvp.Value)}");
+                    /*Console.WriteLine($"Customer: {name}, Address: {string.Join(", ", kvp.Value)}");*/
                     List<string> fullAddress = kvp.Value;
                     string country = fullAddress[2];
                     if ( address.countryCheck(country) == true)
                     {
-                        Console.WriteLine("Low Cost");
-                        Console.WriteLine();
+                        shipCost = 5;
+                        Console.WriteLine($"The shipping cost for {name} is ${shipCost}UDS");
+
                     }
                     else
                     {
-                        Console.WriteLine("High Cost");  
-                        Console.WriteLine();
+                        shipCost = 35;
+                        Console.WriteLine($"The shipping cost for {name} is ${shipCost}UDS");
                     }
                    
                 }
             }
         }
-
+        Console.WriteLine();
         Order order = new Order();
-        Dictionary<string, List<string>> allproducts = product.getProduct();
-        order.setOrder("John Doe", allproducts);
+        List<string> clients = customer.getCustomers();
+
+        Dictionary<string, List<string>> allProducts = product.getProduct();
+        int counting = 0;
+        foreach(var key in allProducts)
+        {
+            string client = clients[counting];
+
+            List<string> allItems = key.Value;
+            string item1 = allItems[0];
+            string item2 = allItems[1];
+            string item3 = allItems[2];
+            counting++;
+            order.setOrder(client, allItems);
+        }
+        order.getOrder();
+
+        List<string> allProductList = new List<string>();
+
+        /*for (int i = 0; i < clients.Count; i++)
+        {
+            string client = clients[i];
+            Console.WriteLine(client);
+            foreach (var key in allProducts)
+            {
+                Console.WriteLine(key.Key);
+            }
+            foreach (var productEntry in allProducts)
+            {
+                Console.WriteLine(productEntry.Key);
+                allProductList = productEntry.Value;
+                for (int it = 0; it < allProductList.Count; it++)
+                {
+                    Console.WriteLine(allProductList[it]);
+                }
+            }
+            
+            
+            
+        }*/
+        
+
+        
+
+        
+        
 
     }
 }
@@ -136,12 +185,44 @@ public class Address
 public class Order
 {
     private string _Customer;
-    private Dictionary<string, Dictionary<string, List<string>>> _allProducts = new Dictionary<string, Dictionary<string, List<string>>>();
+    private Dictionary<string, List<string>> _order = new Dictionary<string, List<string>>();
 
-    public void setOrder(string name, Dictionary<string, List<string>> products)
+    public void setOrder(string name, List<string> products)
     {
         _Customer = name;
-        _allProducts.Add(_Customer, products);
+        _order.Add(_Customer, products);
+    }
+
+    public void getOrder()
+    {
+        for (int i = 0; i < 1; i++)
+        {
+            foreach (var key in _order.Keys)
+            {
+                List<string> itemList = _order[key];
+                string item = itemList[0];
+                string price1 = itemList[1];
+                string quantity1 = itemList[2];
+                double price = double.Parse(price1);
+                double quantity = double.Parse(quantity1);
+                double total = price*quantity;
+                Console.WriteLine($"Customer: {key} bought {item}, {price1}, {quantity1}, with a total of ${total}USD");
+            }
+            
+            /*foreach (var key in _order)
+            {
+                List<string> itemList = key.Value;
+                string id = itemList[0];
+                string product = itemList[1];
+                string price = itemList[2];
+                Console.WriteLine($"{id}, {product}, {price}");
+            }*/
+        }
+    }
+
+    public int getShipping(int shipCost)
+    {
+        return shipCost;
     }
 
     public double totalCost(double price, int quantity)
