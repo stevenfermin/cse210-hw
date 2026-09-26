@@ -1,7 +1,7 @@
 public class Video
 {
     private Dictionary<string, List<string>> _videos = new Dictionary<string, List<string>>();
-    private Dictionary<string, Dictionary<string, List<string>>> allComments = new Dictionary<string, Dictionary<string, List<string>>>();
+    private Dictionary<string, Dictionary<string, List<string>>> _allComments = new Dictionary<string, Dictionary<string, List<string>>>();
 
 
     private string _author;
@@ -20,7 +20,7 @@ public class Video
 
     public void setComment(Dictionary<string, Dictionary<string, List<string>>> allComments)
     {
-        this.allComments = allComments;
+        this._allComments = allComments;
     }
 
     public Dictionary<string, List<string>> getVideo()
@@ -33,7 +33,7 @@ public class Video
         foreach (var kvp in _videos)
         {
             Console.WriteLine($"Author: {kvp.Key}, Title: {kvp.Value[0]}, duration: {kvp.Value[1]}");
-            foreach (var text in allComments)
+            foreach (var text in _allComments)
             {
                 if (text.Key == kvp.Value[0])
                 {
