@@ -7,6 +7,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        Console.Clear();
         Console.WriteLine("Hello World! This is the YouTubeVideos Project.");
         Video videos = new Video();
         videos.setVideo("James", "New York Blog", "30:45");
