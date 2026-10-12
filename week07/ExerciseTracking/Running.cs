@@ -14,7 +14,7 @@ public class Running : Exercise
     {
         double speed = (_distance / _Time) * 60;
         double pace = _Time / _distance;
-        string info = $"Distance {_distance} km, Speed {speed}, Pace: {pace} min per km";
+        string info = $"Distance {_distance} km, Speed {speed} kph, Pace: {pace} min per km";
         return info;
     }
     

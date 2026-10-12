@@ -16,7 +16,7 @@ public class Swimming : Exercise
         float distance = _laps * 50 / 1000;
         float speed = (distance / _time) * 60;
         float pace = _time / distance;
-        string info = $"Distance {distance}, Speed {speed}, Pace {pace} min per km";
+        string info = $"Distance {distance}, Speed {speed} kph, Pace {pace} min per km";
         return info;
     }
 }
