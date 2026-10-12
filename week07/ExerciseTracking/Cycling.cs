@@ -15,7 +15,7 @@ public class Cycling : Exercise
     {
         float distance = (_speed * _time) / 60;
         float pace = _time / distance;
-        string info = $"Distance {distance} km, Speed {_speed}, Pace {pace} min per kp";
+        string info = $"Distance {distance} km, Speed {_speed}, Pace {pace} min per km";
         return info;
     }
 }
